@@ -41,7 +41,7 @@ expect "*~#" { send "chmod 775 /root/logger/logger.py\r" }
 expect "*~#" { send "chmod 775 /root/src/mqtt/mqtt-sender.py\r" }
 expect "*~#" { send "nohup sh -c '/root/logger/logger.py $deviceId &'\r" }
 
-#expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'$deviceId'\",\"status\":\"true\"}' \"http://$host/iot/api/devices/deployFinish?api_key=$apiKey\"\r" }
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'$deviceId'\",\"status\":\"true\"}' \"http://$host/iot/api/devices/deployFinish?api_key=$apiKey\"\r" }
 expect "*~#" { send "exit\r" }
 
 interact
