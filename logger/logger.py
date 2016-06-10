@@ -1,20 +1,4 @@
-kip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @sadaf13
- Unwatch 4
-  Star 1
-  Fork 0 platalytics/arduino-yun-sdk
- Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs
-Branch: master Find file Copy patharduino-yun-sdk/core/logger/loggerdarmon.py
-4b921bc  3 minutes ago
-@sadaf13 sadaf13 back to old logger
-1 contributor
-RawBlameHistory     46 lines (33 sloc)  1.62 KB
-mport paho.mqtt.publish as publish
+import paho.mqtt.publish as publish
 import sys, os, time, json, random
 
 
@@ -59,5 +43,3 @@ while True:
 
     publish.single(topic_name+'mon', json_data, hostname=mqtt_broker_ip, port=mqtt_broker_port)
     time.sleep(3)
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
