@@ -18,9 +18,6 @@ else
     chmod 755 ./copy.sh
     chmod 755 ./setup.sh
     chmod 755 ./setup-video.sh
-
-curl -H 'Content-Type: application/json' -X POST -d '{"device_key":"'${deviceId}'","status":"true","step":"1"}' http://${host}/iot/api/devices/deploy?api_key=${apiKey}
-
     # monitoring script deployment
     ./copy.sh $boardIp $boardUserName $boardPassword $monitoringDaemonPath /root/ 1>/dev/null
 
@@ -30,10 +27,8 @@ curl -H 'Content-Type: application/json' -X POST -d '{"device_key":"'${deviceId}
     # copying library files
     ./copy.sh $boardIp $boardUserName $boardPassword $libraryPath /root/ 1>/dev/null
 
- curl -H 'Content-Type: application/json' -X POST -d '{"device_key":"'${deviceId}'","status":"true","step":"2"}' http://${host}/iot/api/devices/deploy?api_key=${apiKey}
-
     # setup
     ./setup.sh $boardIp $boardUserName $boardPassword $deviceId $host $apiKey
     # setup video streaming
-    # ./setup-video.sh
+    ./setup-video.sh
 fi
