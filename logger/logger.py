@@ -21,8 +21,8 @@ while True:
 	for i in lines:
 		memory_stats_data[i.split(":")[0]] = i.split(":")[1].strip(' ')
 
-	process_count = int(os.popen('ps | wc -l').read())
-
+ 	process_count = int(os.popen('ps -AL | wc -l').read())-1
+        print process_count
 	all_stats = [{'MemoryStats': memory_stats_data}, {'ProcessStats': {'ProcessCount': process_count}}]
 	json_data = json.dumps(all_stats)
 	parsed = json.loads(json_data)
