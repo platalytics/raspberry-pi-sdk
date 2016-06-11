@@ -1,7 +1,6 @@
 import paho.mqtt.publish as publish
 import sys, os, time, json, random
 
-
 mqtt_broker_ip = '45.55.159.119'
 mqtt_broker_port = 1883
 
@@ -9,7 +8,6 @@ mqtt_broker_port = 1883
 f = open('/root/key.conf', 'r')
 topic_name = f.read()[:-1]
 f.close()
-
 
 while True:
     # fetching memory stats
@@ -27,10 +25,10 @@ while True:
     memory_stats_data = {}
 
     lines = f.read().split("\n")[:-1]
-    for i in lineis:
+    for i in lines:
         memory_stats_data[i.split(":")[0]] = i.split(":")[1].strip(' ')
 
-    process_count = int(os.popen('ps -AL | wc -l').read())-1
+    process_count = int(os.popen('ps -AL | wc -l').read()) - 1
 
     # thanks to http://www.roman10.net/2011/07/25/get-disk-space-in-pythonusing-statvfs/
     disk = os.statvfs("/")
@@ -38,8 +36,10 @@ while True:
     total_used_space = (float(disk.f_bsize * (disk.f_blocks - disk.f_bfree))) / 1024
     total_avail_space = (float(disk.f_bsize * disk.f_bfree)) / 1024
 
-    all_stats = [{'MemoryStats': memory_stats_data}, {'CPUStats': {'CPUPercentage': cpu_utilization}}, {'DiskStats': {'TotalDiskSpace': total_disk_space,'FreeDiskSpace':total_avail_space,'Used':total_used_space}}]
+    all_stats = [{'MemoryStats': memory_stats_data}, {'CPUStats': {'CPUPercentage': cpu_utilization}}, {
+        'DiskStats': {'TotalDiskSpace': total_disk_space, 'FreeDiskSpace': total_avail_space,
+                      'Used': total_used_space}}]
     json_data = json.dumps(all_stats)
 
-    publish.single(topic_name+'mon', json_data, hostname=mqtt_broker_ip, port=mqtt_broker_port)
+    publish.single(topic_name + 'mon', json_data, hostname=mqtt_broker_ip, port=mqtt_broker_port)
     time.sleep(3)
