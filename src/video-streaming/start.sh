@@ -2,6 +2,7 @@
 
 if [ $# -ne 5 ]; then
 	 echo "usage: ./video-setup.sh streaming-server-ip streaming-server-port secret-password width height"
+	 exit
 else
     host=$1
     port=$2
