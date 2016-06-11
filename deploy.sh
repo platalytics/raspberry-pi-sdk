@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 7 ]; then
+if [ $# -ne 6 ]; then
     echo "usage: ./deploy.sh <board-ip> <board-username> <board-password> <device-key> <host> <api-key>"
 else
     boardIp=$1
