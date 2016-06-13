@@ -25,7 +25,7 @@ expect {
 }
 
 # pre-installation setup
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"3\"}' '${front_end_host}' \r" }
+expect "*~#" { send "./root/core/ack/curl-notify.sh  '${device_id}' '${front_end_host}' \"3\""}
 
 expect "*~#" { send "apt-get update\r" }
 expect "*~#" { send "apt-get install python-openssl\r" }
@@ -45,15 +45,14 @@ expect "*~#" { send "nohup sh -c '/root/core/logger/loggerdaemon.py $device_id &
 expect "*~#" { send "chmod 775 /root/core/controls/controlsdaemon.py\r" }
 
 # setting running daemons
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"4\"}' ${front_end_host} \r" }
-
+expect "*~#" { send "./root/core/ack/curl-notify.sh  '${device_id}' '${front_end_host}' \"4\""}
 expect "*~#" { send "echo ${device_id} 1>/root/key.conf\r" }
 expect "*~#" { send "nohup sh -c '/root/core/logger/loggerdaemon.py' 1>/dev/null 2>&1 &\r" }
 expect "*~#" { send "echo ${device_id}controlcallback 1>/root/controls.conf\r" }
 expect "*~#" { send "nohup sh -c '/root/core/controls/controlsdaemon.py' 1>/dev/null 2>&1 &\r" }
 
 # adding bootloader entries
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"5\"}' ${front_end_host}\r" }
+expect "*~#" { send "./root/core/ack/curl-notify.sh  '${device_id}' '${front_end_host}' \"5\""}
 expect "*~#" { send "cat /root/core/bootloader/entry 1>/etc/rc.local\r" }
 expect "*~#" { send "echo 'nohup sh -c '/root/core/logger/loggerdaemon.py' 1>/dev/null 2>&1 &' >> /etc/rc.local\r" }
 expect "*~#" { send "echo 'nohup sh -c '/root/core/controls/controlsdaemon.py' 1>/dev/null 2>&1 &' >> /etc/rc.local\r" }
@@ -61,15 +60,15 @@ expect "*~#" { send "echo 'exit 0' >> /etc/rc.local\r" }
 
 
 # cleaning up
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"6\"}' ${front_end_host} \r" }
+expect "*~#" { send "./root/core/ack/curl-notify.sh  '${device_id}' '${front_end_host}' \"6\""}
 expect "*~#" { send "rm -rf /root/lib\r" }
 
 # rebooting
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"7\"}' ${front_end_host} \r" }
+expect "*~#" { send "./root/core/ack/curl-notify.sh  '${device_id}' '${front_end_host}' \"7\""}
 ## reboot here ##
 
 # completion ack
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"8\"}' ${front_end_host} \r" }
+expect "*~#" { send "./root/core/ack/curl-notify.sh  '${device_id}' '${front_end_host}' \"8\""}
 
 expect "*~#" { send "exit\r" }
 

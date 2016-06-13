@@ -17,9 +17,12 @@ else
     chmod 755 ./copy.sh
     chmod 755 ./setup.sh
     chmod 755 ./setup-video.sh
-    
+    chmod 755 ./root/core/ack/curl-notify.sh
+
     echo "starting..."
-    curl -H 'Content-Type: application/json' -X POST -d '{"device_key":"'${device_id}'","status":"true","step":"1"}' ${front_end_host}
+
+    #notifying frontend
+    ./root/core/ack/curl-notify.sh ${device_id} ${front_end_host} "1"
 
     # monitoring script deployment
     ./copy.sh ${board_ip} ${board_username} ${board_password} ${ssh_port} ${core_path} /root/ 1>/dev/null
@@ -30,7 +33,8 @@ else
     # copying library files
     ./copy.sh ${board_ip} ${board_username} ${board_password} ${ssh_port} ${libraries} /root/ 1>/dev/null
 
-    curl -H 'Content-Type: application/json' -X POST -d '{"device_key":"'${device_id}'","status":"true","step":"2"}' ${front_end_host}
+     #notifying frontend
+    ./root/core/ack/curl-notify.sh ${device_id} ${front_end_host} "2"
 
     # setup
     ./setup.sh ${board_ip} ${board_username} ${board_password} ${device_id} ${ssh_port} ${front_end_host}
