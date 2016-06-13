@@ -7,15 +7,15 @@ set boardIp [lindex $argv 0]
 set boardUserName [lindex $argv 1]
 set boardPassword [lindex $argv 2]
 set deviceId [lindex $argv 3]
-set host [lindex $argv 4]
-set apiKey [lindex $argv 5]
+set ssh_port [lindex $argv 4]
+set front_end_host [lindex $argv 5]
 
 set remoteEnd "$boardUserName@$boardIp"
 
 send_user "\nmake sure your pi board is connected to internet to install these dependencies"
 send_user "\n- distribute\n- python-openssl\n- pip\n- paho-mqtt-1.1\n- kafka-python-1.1.1\n"
 
-spawn ssh $remoteEnd
+spawn ssh ${remote_end} -p ${ssh_port}
 expect {
     -re ".*yes/no.*" {
         send "yes\r"; exp_continue
@@ -25,7 +25,7 @@ expect {
 }
 
 # pre-installation setup
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${deviceId}'\",\"status\":\"true\",\"step\":\"3\"}' \"http://${host}/iot/api/devices/deploy?api_key=${apiKey}\"\r" }
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"3\"}' '${front_end_host}' \r" }
 
 expect "*~#" { send "apt-get update\r" }
 expect "*~#" { send "apt-get install python-openssl\r" }
@@ -45,7 +45,7 @@ expect "*~#" { send "nohup sh -c '/root/core/logger/logger.py $deviceId &'\r" }
 expect "*~#" { send "chmod 775 /root/core/controls/controlsdaemon.py\r" }
 
 # setting running daemons
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${deviceId}'\",\"status\":\"true\",\"step\":\"4\"}' \"http://${host}/iot/api/devices/deploy?api_key=${apiKey}\"\r" }
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"4\"}' ${front_end_host} \r" }
 
 expect "*~#" { send "echo ${deviceId} 1>/root/key.conf\r" }
 expect "*~#" { send "nohup sh -c '/root/core/logger/logger.py' 1>/dev/null 2>&1 &\r" }
@@ -61,16 +61,15 @@ expect "*~#" { send "echo 'exit 0' >> /etc/rc.local\r" }
 
 
 # cleaning up
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${deviceId}'\",\"status\":\"true\",\"step\":\"6\"}' \"http://${host}/iot/api/devices/deploy?api_key=${apiKey}\"\r" }
-
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"6\"}' ${front_end_host} \r" }
 expect "*~#" { send "rm -rf /root/lib\r" }
 
 # rebooting
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${deviceId}'\",\"status\":\"true\",\"step\":\"7\"}' \"http://${host}/iot/api/devices/deploy?api_key=${apiKey}\"\r" }
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"7\"}' ${front_end_host} \r" }
 ## reboot here ##
 
-
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${deviceId}'\",\"status\":\"true\",\"step\":\"8\"}' \"http://${host}/iot/api/devices/deploy?api_key=${apiKey}\"\r" }
+# completion ack
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"8\"}' ${front_end_host} \r" }
 
 expect "*~#" { send "exit\r" }
 
