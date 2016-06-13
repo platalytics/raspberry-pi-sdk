@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 6 ]; then
-    echo "usage: ./deploy.sh <board-ip> <board-username> <board-password> <device-key> <host> <api-key>"
+    echo "usage: ./deploy.sh <board-ip> <board-username> <board-password> <ssh-port> <device-key> <front_end_host> "
 else
     boardIp=$1
     boardUserName=$2

@@ -10,7 +10,7 @@ set device_id [lindex $argv 3]
 set ssh_port [lindex $argv 4]
 set front_end_host [lindex $argv 5]
 
-set remoteEnd "$boardUserName@$boardIp"
+set remote_end "$boardUserName@$boardIp"
 
 send_user "\nmake sure your pi board is connected to internet to install these dependencies"
 send_user "\n- distribute\n- python-openssl\n- pip\n- paho-mqtt-1.1\n- kafka-python-1.1.1\n"
