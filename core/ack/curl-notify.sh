@@ -1,4 +1,4 @@
-#!/usr/bin/expect
+#!/bin/bash
 
 # validate arguments
 
