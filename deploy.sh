@@ -3,9 +3,9 @@
 if [ $# -ne 6 ]; then
     echo "usage: ./deploy.sh <board-ip> <board-username> <board-password> <ssh-port> <device-key> <front_end_host> "
 else
-    boardIp=$1
-    boardUserName=$2
-    boardPassword=$3
+    board_ip=$1
+    board_username=$2
+    board_password=$3
     ssh_port=$4
     device_id=$5
     front_end_host=$6
