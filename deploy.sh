@@ -16,8 +16,8 @@ else
 
     chmod 755 ./copy.sh
     chmod 755 ./setup.sh
-    chmod 755 ./setup-video.sh
-    chmod 755 ./root/core/ack/curl-notify.sh
+    chmod 755 ./core/camera/installer/init.sh
+    chmod 755 ./core/ack/curl-notify.sh
 
     echo "starting..."
 
