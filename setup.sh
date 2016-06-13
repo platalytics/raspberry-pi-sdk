@@ -6,7 +6,7 @@ set timeout -1
 set boardIp [lindex $argv 0]
 set boardUserName [lindex $argv 1]
 set boardPassword [lindex $argv 2]
-set deviceId [lindex $argv 3]
+set device_id [lindex $argv 3]
 set ssh_port [lindex $argv 4]
 set front_end_host [lindex $argv 5]
 
@@ -39,23 +39,23 @@ expect "*~#" { send "pip install /root/lib/paho-mqtt-1.1.tar.gz\r" }
 # expect "*~#" { send "pip install /root/lib/amqp-1.4.7.tar.gz\r" }
 # expect "*~#" { send "pip install /root/lib/CoAPthon-4.0.0.tar.gz -r /root/lib/coap_req\r" }
 
-expect "*~#" { send "chmod 775 /root/core/logger/loggerdaemon.py\r" }
+expect "*~#" { send "chmod 775 /root/core/logger/logger.py\r" }
 expect "*~#" { send "chmod 775 /root/src/mqtt/mqtt-sender.py\r" }
-expect "*~#" { send "nohup sh -c '/root/core/logger/loggerdaemon.py $deviceId &'\r" }
+expect "*~#" { send "nohup sh -c '/root/core/logger/logger.py $device_id &'\r" }
 expect "*~#" { send "chmod 775 /root/core/controls/controlsdaemon.py\r" }
 
 # setting running daemons
 expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"4\"}' ${front_end_host} \r" }
 
-expect "*~#" { send "echo ${deviceId} 1>/root/key.conf\r" }
-expect "*~#" { send "nohup sh -c '/root/core/logger/loggerdaemon.py' 1>/dev/null 2>&1 &\r" }
-expect "*~#" { send "echo ${deviceId}controlcallback 1>/root/controls.conf\r" }
+expect "*~#" { send "echo ${device_id} 1>/root/key.conf\r" }
+expect "*~#" { send "nohup sh -c '/root/core/logger/logger.py' 1>/dev/null 2>&1 &\r" }
+expect "*~#" { send "echo ${device_id}controlcallback 1>/root/controls.conf\r" }
 expect "*~#" { send "nohup sh -c '/root/core/controls/controlsdaemon.py' 1>/dev/null 2>&1 &\r" }
 
 # adding bootloader entries
-expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${deviceId}'\",\"status\":\"true\",\"step\":\"5\"}' \"http://${host}/iot/api/devices/deploy?api_key=${apiKey}\"\r" }
+expect "*~#" { send "curl -H \"Content-Type: application/json\" -X POST -d '{\"device_key\":\"'${device_id}'\",\"status\":\"true\",\"step\":\"5\"}' ${front_end_host}\r" }
 expect "*~#" { send "cat /root/core/bootloader/entry 1>/etc/rc.local\r" }
-expect "*~#" { send "echo 'nohup sh -c '/root/core/logger/loggerdaemon.py' 1>/dev/null 2>&1 &' >> /etc/rc.local\r" }
+expect "*~#" { send "echo 'nohup sh -c '/root/core/logger/logger.py' 1>/dev/null 2>&1 &' >> /etc/rc.local\r" }
 expect "*~#" { send "echo 'nohup sh -c '/root/core/controls/controlsdaemon.py' 1>/dev/null 2>&1 &' >> /etc/rc.local\r" }
 expect "*~#" { send "echo 'exit 0' >> /etc/rc.local\r" }
 
