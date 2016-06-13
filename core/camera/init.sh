@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -ne 6 ]; then
-    echo "usage: ./init.sh <board-ip> <board-username> <board-password> <device-key> <front_end_host>"
+    echo "usage: ./init.sh <board-ip> <board-username> <board-password> <ssh-port> <device-key> <front_end_host>"
 else
     board_ip=$1
     board_username=$2
