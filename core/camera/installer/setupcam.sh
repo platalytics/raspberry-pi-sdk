@@ -32,7 +32,6 @@ fi
 sudo apt-get update
 if [ $? -ne 0 ]; then
 	echo "Update command failed, exiting."
-    exit
 fi
 
 sudo apt-get install uv4l uv4l-raspicam
