@@ -24,12 +24,12 @@ expect {
 }
 
 # pre-installation setup
-
 expect "*~#" { send "chmod 755 /root/core/camera/installer/setupcam.sh\r" }
 expect "*~#" { send "/root/core/camera/installer/setupcam.sh\r" }
 
-# acknowledge frontend here
-
+# start streaming
+expect "*~#" { send "chmod 755 /root/src/streamer/start.sh\r" }
+expect "*~#" { send "nohup sh -c '/root/src/streamer/start.sh 104.236.51.246 8082 12345 320 240' &\r" }
 expect "*~#" { send "exit\r" }
 
 interact
