@@ -1,5 +1,7 @@
 #!/bin/bash
 cd /usr/src
+rm -rf *mpeg*
+rm -rf *x264*
 wget  "https://s3.amazonaws.com/Plat-libraries/mpeg.tar.gz"
 if [ $? -ne 0 ]; then
     echo 'downloading FFmpeg failed'
