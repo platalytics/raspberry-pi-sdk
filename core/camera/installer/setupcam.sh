@@ -8,7 +8,7 @@ if [ $? -ne 0 ]; then
     exit
 fi
 tar zxvf mpeg.tar.gz
-chmod 777 -R FFmpeg/
+chmod 777 -R FFmpeg/ffmpeg
 wget  "https://s3.amazonaws.com/Plat-libraries/x264.tar.gz"
 if [ $? -ne 0 ]; then
 	echo 'downloading x264 failed'
