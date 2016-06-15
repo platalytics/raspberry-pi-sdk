@@ -30,15 +30,16 @@ while True:
     for i in lines:
         memory_stats_data[i.split(":")[0]] = i.split(":")[1].strip(' ')
 
-    process_count = int(os.popen('ps -AL | wc -l').read()) - 1
-
+    process_threads = int(os.popen('ps -AL | wc -l').read()) - 1
+    process_count = int(os.popen('ps -A | wc -l ').read())-1
+    thread_count = process_threads - process_count
     # thanks to http://www.roman10.net/2011/07/25/get-disk-space-in-pythonusing-statvfs/
     disk = os.statvfs("/")
     total_disk_space = (float(disk.f_bsize * disk.f_blocks)) / 1024
     total_used_space = (float(disk.f_bsize * (disk.f_blocks - disk.f_bfree))) / 1024
     total_avail_space = (float(disk.f_bsize * disk.f_bfree)) / 1024
 
-    all_stats = [{'MemoryStats': memory_stats_data}, {'CPUStats': {'CPUPercentage': cpu_utilization}}, {
+    all_stats = [{'MemoryStats': memory_stats_data}, {'CPUStats': {'CPUPercentage': cpu_utilization,'ThreadCount':thread_count,'ProcessCount':process_count}}, {
         'DiskStats': {'TotalDiskSpace': total_disk_space, 'FreeDiskSpace': total_avail_space,
                       'Used': total_used_space}}]
     json_data = json.dumps(all_stats)
