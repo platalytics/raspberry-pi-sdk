@@ -24,7 +24,7 @@ expect {
 }
 
 # stop streaming
-expect "*~#" { send "ps -ef | grep ffmpeg | awk '{ print $2 }' | xargs kill\r" }
+expect "*~#" { send "killall ffmpeg\r" }
 expect "*~#" { send "exit\r" }
 
 interact
