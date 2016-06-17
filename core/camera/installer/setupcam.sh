@@ -1,10 +1,15 @@
 #!/bin/bash
 
+device_id=$1
+front_end_host=$2
+
 if [ -f "/usr/src/mpeg.tar.gz" ]
 then
 	echo "/usr/src/mpeg.tar.gz already found. skipping download."
+
 else
-	
+    curl -H 'Content-Type: application/json' -X POST -d '{"status":true,"device_key":"'${device_id}'","action":"started"}' ${front_end_host}
+
 	cd /usr/src
 	rm -rf *mpeg*
 	rm -rf *x264*
@@ -45,5 +50,6 @@ else
 	    echo "The command failed, exiting."
 	    exit
 	fi
-fi
 
+    curl -H 'Content-Type: application/json' -X POST -d '{"status":true,"device_key":"'${device_id}'","action":"finished"}' ${front_end_host}
+fi

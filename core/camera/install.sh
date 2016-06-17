@@ -25,7 +25,7 @@ expect {
 
 # pre-installation setup
 expect "*~#" { send "chmod 755 /root/core/camera/installer/setupcam.sh\r" }
-expect "*~#" { send "/root/core/camera/installer/setupcam.sh\r" }
+expect "*~#" { send "/root/core/camera/installer/setupcam.sh ${device_id} ${front_end_host}\r" }
 
 # start streaming
 expect "*~#" { send "chmod 755 /root/src/streamer/start.sh\r" }
