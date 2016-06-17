@@ -5,7 +5,9 @@ front_end_host=$2
 
 if [ -f "/usr/src/mpeg.tar.gz" ]
 then
+	curl -H 'Content-Type: application/json' -X POST -d '{"status":true,"device_key":"'${device_id}'","action":"started"}' ${front_end_host}
 	echo "/usr/src/mpeg.tar.gz already found. skipping download."
+	curl -H 'Content-Type: application/json' -X POST -d '{"status":true,"device_key":"'${device_id}'","action":"finished"}' ${front_end_host}
 
 else
     curl -H 'Content-Type: application/json' -X POST -d '{"status":true,"device_key":"'${device_id}'","action":"started"}' ${front_end_host}
