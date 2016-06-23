@@ -29,7 +29,7 @@ else
                 device_id=$OPTARG
                 ;;
             f)
-                frontend_host=$OPTARG
+                front_end_host=$OPTARG
                 ;;
             \?)
                 echo "Invalid flag: -$OPTARG." ; exit 1
