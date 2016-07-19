@@ -1,8 +1,8 @@
 # Raspberry Pi SDK
 
-Before you dive in to setting up the SDK for your device there are some instructions that need to be followed along.
+Before you dive into setting up the SDK for your device, follow instructions below.
 
-1. You need a `linux`-based environment to setup
+1. You need a Linux based environment (Mac works too) to setup
 2. Make sure you have `expect` utility installed
 
    Get `expect` on Ubuntu/Debian
