@@ -1,10 +1,11 @@
 #!/bin/bash
-#Updating the GPU firmware
+
+# updating the GPU firmware
 sudo apt-get install rpi-update
 
-#update the software
+# update the software
 sudo rpi-update
 
-#Updating userspace and kernel Software
+# updating userspace and kernel software
 sudo apt-get update
 sudo apt-get upgrade

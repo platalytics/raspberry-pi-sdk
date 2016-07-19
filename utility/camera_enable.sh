@@ -1,3 +1,4 @@
 #!/bin/bash
-#Run following command and then Select Enable camera and hit Enter, then go to Finish and you'll be prompted to reboot.
+
+# run following command and then select enable camera and hit enter, finish and reboot
 sudo raspi-config
