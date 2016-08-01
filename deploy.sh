@@ -52,7 +52,7 @@ else
     echo "starting..."
 
     #notifying frontend
-    ./core/ack/curl-notify.sh "-d" ${device_id} "-f" ${front_end_host} "-s 1"
+    ./core/ack/curl-notify.sh -d ${device_id} -f ${front_end_host} -s 1
 
     # monitoring script deployment
     ./copy.sh ${board_ip} ${board_username} ${board_password} ${ssh_port} ${core_path} /root/ 1>/dev/null
@@ -64,7 +64,7 @@ else
     ./copy.sh ${board_ip} ${board_username} ${board_password} ${ssh_port} ${libraries} /root/ 1>/dev/null
 
      #notifying frontend
-    ./core/ack/curl-notify.sh ${device_id} ${front_end_host} "2"
+    ./core/ack/curl-notify.sh -d ${device_id} -f ${front_end_host} -s 2
 
     # setup
     ./setup.sh ${board_ip} ${board_username} ${board_password} ${ssh_port} ${device_id} ${front_end_host}

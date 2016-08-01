@@ -3,7 +3,8 @@
 import paho.mqtt.publish as publish
 import sys, os, time, json, random
 
-mqtt_broker_ip = '45.55.159.119'
+
+mqtt_broker_ip = '104.236.51.246'
 mqtt_broker_port = 1883
 
 # fetching topic name

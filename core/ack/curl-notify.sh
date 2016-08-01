@@ -3,7 +3,7 @@
 # validate arguments
 
 if [ $# -ne 6 ]; then
-   echo """Usage: ./curl-notify.sh -<option1> <value1> ...
+   echo $# """Usage: ./curl-notify.sh -<option1> <value1> ...
     -d device ID/key generated from Platalytics Platform
     -f frontend host
     -s step"

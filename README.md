@@ -5,7 +5,7 @@ Before you dive into setting up the SDK for your device, follow instructions bel
 1. You need a Linux based environment (Mac works too) to setup
 2. Make sure you have `expect` utility installed
 
-   Get `expect` on Ubuntu/Debian
+	Get `expect` on Ubuntu/Debian
 
         $ sudo apt-get install expect
 
